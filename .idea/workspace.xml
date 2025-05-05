@@ -4,26 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ee9c0c7c-536f-4fff-9443-8efb5d7cca00" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/DSA_Exercises.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/material_theme_project_new.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Scripts/Q1.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Scripts/Q10.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Scripts/Q11.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Scripts/Q12.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Scripts/Q2.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Scripts/Q3.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Scripts/Q4.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Scripts/Q5.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Scripts/Q6.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Scripts/Q7.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Scripts/Q8.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Scripts/Q9.py" afterDir="false" />
+    <list default="true" id="ee9c0c7c-536f-4fff-9443-8efb5d7cca00" name="Changes" comment="Test commit 1">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,6 +22,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "davgal27"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/davgal27/DSA_exercises.git",
+    "accountId": "37a6a49b-2453-4a3e-ab4f-0b4ab0565805"
+  }
+}]]></component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 8
 }</component>
@@ -59,9 +53,15 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "AtomSelectConfig",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/.idea" />
+    </key>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -80,10 +80,24 @@
       <updated>1746457948725</updated>
       <workItem from="1746457950171" duration="81000" />
       <workItem from="1746458497395" duration="1660000" />
+      <workItem from="1746460171807" duration="971000" />
     </task>
+    <task id="LOCAL-00001" summary="Test commit 1">
+      <option name="closed" value="true" />
+      <created>1746460489301</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1746460489301</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Test commit 1" />
+    <option name="LAST_COMMIT_MESSAGE" value="Test commit 1" />
   </component>
 </project>
