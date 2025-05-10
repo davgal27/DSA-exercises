@@ -1,0 +1,608 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{geometry}
+ \geometry{
+ a4paper,
+ total={170mm,257mm},
+ left=20mm,
+ top=20mm,
+ }
+ \usepackage{graphicx}
+ \usepackage{titling}
+ \usepackage{float}
+ \usepackage{listings}
+ \usepackage{listings}
+ \usepackage{xcolor}
+
+ \lstset{
+   language=Python,
+   basicstyle=\ttfamily\small,
+   keywordstyle=\color{red},
+   stringstyle=\color{blue},
+   commentstyle=\color{gray},
+   stepnumber=1,
+   numbersep=5pt,
+   frame=single,
+   showstringspaces=false,
+   breaklines=true
+ } 
+
+\title{Data Structures and Algorithms : Coursework}
+\author{Dave Galea}
+\date{May 2025}
+ 
+
+\makeatletter
+\def\@maketitle{%
+  \newpage
+  \null
+  \vskip 1em%
+  \begin{center}%
+  \let \footnote \thanks
+    {\LARGE \@title \par}%
+    \vskip 1em%
+    %{\large \@date}%
+  \end{center}%
+  \par
+  \vskip 1em}
+\makeatother
+
+\usepackage{lipsum}  
+\usepackage{parskip}
+
+\begin{document}
+
+\maketitle
+
+\noindent\begin{tabular}{@{}ll}
+    Student & \theauthor\\
+     Lecturer &  Prof. John Abela\\
+     Date & \thedate\\
+     Unit Code & ICT 1018
+\end{tabular}
+
+\section*{1. Statement Of Completion }
+Question 1 – Attempted and works well.
+
+Question 2 – Attempted and works well.
+
+Question 3 – Attempted and works well.
+
+Question 4 – Attempted and works well.
+
+Question 5 – Attempted and works well.
+
+Question 6 – Attempted and works well.
+
+Question 7 – Attempted and works well.
+
+Question 8 – Attempted and works well.
+
+Question 9 – Attempted and works well.
+
+Question 10 – Attempted and works well.
+
+Question 11 – Attempted and works well.
+
+Question 12 – Attempted and works well.
+
+\section*{2. Source code, Output, and Testing}
+\subsection*{Question 1 \& 2: Shell Sort, Quick Sort, and Merging of two arrays}
+\subsubsection*{Source Code}
+\begin{lstlisting}
+####### QUESTION 1
+import random
+# Creating Arrays A and B
+A = [random.randint(0, 1024) for _ in range(500)]
+B = [random.randint(0, 1024) for _ in range(300)]
+
+# Sorting array A with Shell Sort
+def shell_sort(arr):
+    n = len(arr)
+    gap = n // 2
+
+    while gap > 0: # While gap is larger than zero
+        for i in range(gap, n): # iterate through elements 'gap' positions apart until the end
+            temp = arr[i]
+            j = i
+
+            while j >= gap and arr[j - gap] > temp:
+                # While element 'gap' positions away is greater than current value shift forward
+                arr[j] = arr[j - gap]
+                j -= gap # Check for earlier elements at gap positions
+
+            arr[j] = temp
+        gap = gap // 2
+    return arr
+
+# Sorting array B with Quick Sort
+# Partitioning
+def partition(arr, left, right):
+    pivot = arr[right] # Setting pivot as rightmost element of list (randomized, so this is fair)
+    pivot_pos = left - 1
+    for j in range(left, right): # runs from left to right
+        if arr[j] <= pivot:
+            pivot_pos = pivot_pos + 1
+            (arr[pivot_pos], arr[j]) = (arr[j], arr[pivot_pos])
+    # Placing pivot in correct position at the end of the loop
+    (arr[pivot_pos +1 ], arr[right]) = (arr[right], arr[pivot_pos + 1])
+    return pivot_pos + 1
+
+# Calling Quicksort recursively
+def quick_sort(arr, left, right):
+    if left < right:
+        pivot_index = partition(arr, left, right) # finding pivot index from partition
+        quick_sort(arr, left, pivot_index - 1) # Sorting elements less than pivot
+        quick_sort(arr, pivot_index + 1, right) #Sorting elements greater than pivot
+    return arr
+
+shell_sort(A)
+quick_sort(B, 0, len(B) - 1)
+
+# function used to print the array into readable chunks
+def print_array_in_chunks(arr, chunk_size=30):
+    for i in range(0, len(arr), chunk_size):
+        print(arr[i:i + chunk_size])
+
+print("QUESTION 1: \nSorted Array A of size:", len(A))
+print_array_in_chunks(A)
+print("\nSorted Array B of size:", len(B))
+print_array_in_chunks(B)
+
+# TESTING
+# Check if A is sorted
+#All function in python which gives true if all elements of given iterable are true
+print("\nA is sorted", all(A[i] <= A[i + 1] for i in range(len(A) - 1)))
+# Check if B is sorted
+print("B is sorted:", all(B[i] <= B[i + 1] for i in range(len(B) - 1)))
+
+########### QUESTION 2
+
+def merge_arrays(arr1, arr2):
+    i = 0 # For A
+    j = 0 # For B
+    k = 0 # For C
+    n = len(arr1)
+    m = len(arr2)
+    joined_arr = [k] * (n + m)  # Create array joined size of A + B
+
+    while i < n and j < m: # While both indexes are in bounds of their respective arrays:
+        if arr1[i] <= arr2[j]: # Compare elements from both arrays and add smaller one to C
+            joined_arr[k] = arr1[i] # smaller goes to A
+            i = i + 1
+        else:
+            joined_arr[k] = arr2[j] # smaller goes to B
+            j = j + 1
+        k = k + 1 # increment index k of C by one after each comparison
+
+    while i < n: # If any elements left over in A (in case A is larger than B) move element to C
+        joined_arr[k] = arr1[i]
+        i = i + 1
+        k = k + 1
+
+    while j < m: # Same thing for B
+        joined_arr[k] = arr2[j]
+        j = j + 1
+        k = k + 1
+    return joined_arr
+
+C = merge_arrays(shell_sort(A), quick_sort(B, 0, len(B) - 1))
+print("\n\nQUESTION 2: \nSorted Array C of size:", len(C))
+print_array_in_chunks(C)
+print("\n C is sorted:", all(C[i] <= C[i + 1] for i in range(len(C) -1)))
+\end{lstlisting}
+
+\subsubsection*{Screenshot of the Output}
+\includegraphics[width=1\textwidth]{q1_output.png}
+
+\includegraphics[width=1\textwidth]{q2_output.png}
+
+\subsubsection*{Testing}
+Testing was done with use of the \texttt{all} function in python, which gives 'True" if all elements of a given iterable are true. By giving the iterable as  \texttt{A [ i ] <= A [ i + 1]}, this ensured that every array produced in both Question 1 and 2 was in fact sorted.
+
+\subsection*{Question 3: Finding Minimum and Maximum in an Array}
+\subsubsection*{Source Code}
+\begin{lstlisting}
+import random
+A = [random.randint(0, 1024) for _ in range(10)]  # Short array for quick testing
+B = [1, 2, 3, 4, 5, 6, 7, 10, 11, 55] # Example of sorted array for testing
+def find_extremes(arr):
+    extremes =  []
+    for i in range(1, len(arr) - 1): # A[i] is not the first nor the last element of A
+        # Check if i is larger or smaller than both neighbours
+        if (arr[i - 1] < arr[i] > arr[i + 1]) or (arr[i - 1] > arr[i] < arr[i + 1]): 
+            extremes.append(arr[i]) # if it is, add it to the extremes array
+    return extremes if extremes else "NONE, IT IS SORTED"
+
+print("Array A Extremes:", find_extremes(A))
+
+# TESTING
+print("Array B Extremes:", find_extremes(B))  #This will always output sorted
+# ANSWER TO QUESTION
+print("I agree that an array has no extreme points if and only if it is sorted, as for an array to\n"
+      "not have extreme points, it must be strictly ascending or descending; hence sorted")
+\end{lstlisting}
+
+\subsubsection*{Screenshot of the Output}
+\includegraphics[width=1\textwidth]{q3_output.png}
+
+\subsubsection*{Testing}
+Testing was done by ensuring that the part of the function printing that the algorithm is sorted works. This was done by feeding the function an array which is known to be sorted.
+
+\subsection*{Question 4: Identifying Pairs with the Same Product}
+\subsubsection*{Source Code}
+\begin{lstlisting}
+import random
+from collections import defaultdict
+
+random_array = [random.randint(1, 1024) for _ in range(50)]
+
+def find_pairs_same_product(arr):
+    pairs_same_product = []
+    product_map = defaultdict(list)
+    seen_combinations = []
+
+    for i in range(len(arr)): # Iterating over all pairs of i and j
+        for j in range(i + 1, len(arr)):
+            a = arr[i]
+            b = arr[j]
+            product = a * b
+
+            for (c,d) in product_map[product]: # If any pair has the same product
+                group = {a, b, c, d} # Creating a set to be checked for length, if 4, all unique
+                if len({a, b, c, d}) == 4: # If length is 4, all are unique due to nature of set
+
+                    if group not in seen_combinations:
+                        pairs_same_product.append(((a, b), (c, d), product))
+                        seen_combinations.append(group) # Mark as seen to avoid duplicates
+
+            product_map[product].append((a, b)) # Add pair only if another pair has same product
+
+    return pairs_same_product
+
+def print_results(arr): # Function for printing a fail case with no pairs found
+    pairs = find_pairs_same_product(arr)
+    if pairs:
+        for pair1, pair2, product in pairs:
+            print(f"pair 1:{pair1}, pair 2:{pair2}. Product is: {product}")
+    else:
+        print("No matching pairs found.")
+print("Results for random array:")
+print_results(random_array)
+
+# TESTING: Done with two different arrays: one known to have no matching products, and one with known matching products
+matching_array = [2, 16, 1, 32, 8, 4]
+nomatching_array = [1, 2, 3, 5, 7]
+print("\nTESTING: Results with a matched array:")
+print_results(matching_array)
+
+print("\nTESTING: Results with an array known to have no matches. Expected result is no matches found:")
+print_results(nomatching_array)
+
+\end{lstlisting}
+
+\subsubsection*{Screenshot of the Output}
+\includegraphics[width=1\textwidth]{q4_output.png}
+
+\subsubsection*{Testing}
+Testing was done with two different arrays : one known to have no matching products , and one with known matching products. This ensured that the function worked as expected. 
+
+\subsection*{Question 5: Stack Implementation Using Abstract Data Type}
+\subsubsection*{Source Code}
+\begin{lstlisting}
+def evaluate_rpn(expr):
+    stack = []
+
+    for item in expr.split():
+        if item.isdigit(): #If the item from the split is a number
+            stack.append(float(item)) # Add the item to the stack
+        else: #If the item is not a number (operand)
+            b = stack.pop() # Popping in LIFO format
+            a = stack.pop()
+            print(f"Operation: {a} {item} {b}")
+            if item == '+':
+                result = a + b
+            elif item == '-':
+                result = a - b
+            elif item == 'x':
+                result = a * b
+            elif item == '/':
+                result = a / b
+            result  = round(result, 2)
+            stack.append(result)
+        print("Stack:", stack)
+    return stack[0]
+
+evaluate_rpn("4 6 + 2 x 3 / 8 - 10 +")
+\end{lstlisting}
+
+\subsubsection*{Screenshot of the Output}
+\includegraphics[width=0.55\textwidth]{q5_output.png}
+
+\subsubsection*{Testing}
+Testing was done using an already existing RPN calculator on the internet and comparing the result:
+
+https://www.alcula.com/calculators/rpn/
+
+\subsection*{Question 6: Prime Number Generation Using Sieve of Eratosthenes}
+\subsubsection*{Source Code}
+\begin{lstlisting}
+import math
+
+def is_prime(n): # Boolean function as it returns either True or False
+    if n <= 1: # 1 and 0 are not primes; return false
+        return False
+    for i in range(2, int(math.sqrt(n) + 1)): # check if n is divisible by any number from 2 up to its sqrt
+        if n % i == 0:
+            return False
+    return True
+
+def sieve_erat(limit):
+    primes = [True for _ in range(limit + 1)] # Assume all numbers are prime
+    n = 2 # First prime number is 2
+
+    while n * n <= limit: # checks all n from n to sqrt limit
+        if primes[n]:
+            for multiple in range(n * n, limit + 1, n):
+                primes[multiple] = False
+        n += 1
+    primes_non_boolean = [num for num in range(2, limit+1) if primes[num]] # convert from boolean values to actual numbers
+    return primes_non_boolean
+
+#Part 1
+n = int(input("PART 1: PRIME CHECKER \nEnter a number to check if it is prime: "))
+if is_prime(n):
+    print(f"{n} is prime")
+else:
+    print(f"{n} is not prime")
+#Part 2
+limit = int(input("\nPART 2: SIEVE OF ERATOSTHENES:\nEnter a number to find all prime numbers up to that number: "))
+print(f"The following numbers are prime:\n", sieve_erat(limit))
+
+# Explaining Optimizations made
+print("\nOptimizations made:\nIn both algorithms, checks were made only till n reached the square root of the limit."
+      "\nthis is because once this is passed, all smaller factors have been checked previously, and checking\n"
+      "would be a waste of time.")
+
+# Testing
+print("\nTESTING:\nTesting will be done by passing values of the sieve algorithm through the is_prime algorithm")
+
+for number in sieve_erat(limit):
+    if not is_prime(number):
+        print(f"Result: {number} is not prime, therefore test has failed.")
+    else:
+        print("Result: All values are prime.")
+        break
+
+\end{lstlisting}
+
+\subsubsection*{Screenshot of the Output}
+\includegraphics[width=1\textwidth]{q6_output.png}
+
+\subsubsection*{Testing}
+The testing of the Sieve of Eratosthenes algorithm was performed by feeding the outputted array into the function which checks if all arrays in a number are prime. If all numbers in the array were prime, the Sieve algorithm was successfully implemented.
+
+\subsection*{Question 7: Generating the Collatz Sequence}
+\subsubsection*{Source Code}
+\begin{lstlisting}
+import csv
+def collatz_generator(n):
+    col_sequence = []
+    while n != 1:
+        col_sequence.append(n)
+        if n % 2 == 0: # following rules of the collatz sequence
+            n = n // 2
+        elif n % 2 == 1:
+            n = 3 * n + 1
+    return col_sequence
+
+with open('collatz_sequence.csv', 'w', newline='') as csvfile:
+    writer = csv.writer(csvfile)
+    writer.writerow(collatz_generator(512))
+
+# Testing
+print("Testing was done by comparing to the result in a paper in the"
+      "\n'International Journal of Mathematics and Mathematical Sciences':"
+      "\n'Novel Theorems and Algorithms Relating to the Collatz Conjecture'")
+\end{lstlisting}
+
+\subsubsection*{Screenshot of the Output}
+\includegraphics[width=1\textwidth]{q7_output.png}
+\includegraphics[width=1\textwidth]{q7p2_output.png}
+\subsubsection*{Testing}
+Testing was done by comparing to the result in a paper in the International Journal of Mathematics and Mathematical Sciences: 'Novel Theorems and Algorithms Relating to the Collatz Conjecture'. 
+
+\subsection*{Question 8: Newton-Raphson Method for Root Finding}
+\subsubsection*{Source Code}
+\begin{lstlisting}
+def find_sqrt(n, guess, tolerance): # n = no. to find sqrt of 2
+    next_guess = (guess + n / guess) / 2
+    if abs(guess - next_guess) < tolerance:
+        print("Final guess is:", next_guess)
+        return next_guess
+    return find_sqrt(n, next_guess, tolerance) # Implementing recursion to repeat the step
+
+find_sqrt(327, 327/2, 0.00001) # Parameters equal to those in
+# https://www.geeksforgeeks.org/find-root-of-a-number-using-newtons-method/
+
+# Testing
+print("Testing was done by comparing result to that found in link above. Result matches.")
+\end{lstlisting}
+
+\subsubsection*{Screenshot of the Output}
+\includegraphics[width=1\textwidth]{q8_output.png}
+
+\subsubsection*{Testing}
+Testing was done by comparing the result to the result found in https://www.geeksforgeeks.org/find-root-of-a-number-using-newtons-method/ by using the same parameters used in the site.
+
+\subsection*{Question 9: Detecting Repeated Integers in a List}
+\subsubsection*{Source Code}
+\begin{lstlisting}
+arr_has_repeats = [1, 7, 7, 2, 3, 4, 4, 5, 6, 1, 55, 0, 0, 32, 3] # Repeated values: 4, 7, 1, 0, 3
+arr_no_repeats = [34, 15, 28, 2, 3, 44, 4]
+# Try 1 (unsuccessful: although this performs the task, time complexity is O(n^2))
+def find_repeats_try1(arr):
+    repeats =  []
+    for i in range(len(arr)):
+        for j in range(len(arr)):
+            if (i != j # if not comparing with itself
+            and arr[i] == arr[j]  # and value at 1 position is the same as that at another
+            and arr[i] not in repeats): # and has not already been listed as a repeat
+                repeats.append(arr[i]) # add it to the repeats array
+    return repeats if repeats else "NO REPEATS FOUND"
+
+
+# Try 2 (successful: O(n) time complexity)
+def find_repeats(arr):
+    seen = set()
+    repeats = set()
+    for number in arr:
+        if number not in seen:
+            seen.add(number)
+        else:
+            repeats.add(number)
+    return repeats if repeats else "NO REPEATS FOUND"
+
+print(f"Duplicates in the array known to have repeats:", find_repeats(arr_has_repeats))
+# Testing
+print(f"An array known to have no duplicates was used to test the program:\n", find_repeats(arr_no_repeats))
+
+\end{lstlisting}
+
+\subsubsection*{Screenshot of the Output}
+\includegraphics[width=1\textwidth]{q9_output.png}
+
+\subsubsection*{Testing}
+Testing was done to ensure that the function also works for when the array has no repeated integers. This was done by feeding the function an array known to have no repeats.
+
+\subsubsection*{Note}
+Two attempts were made in solving this question. Both where successful in completing the task, which is why I left both of them in the source code, however the first try has a time complexity of $On^2$ while the second try has a time complexity of $O(n)$, and is therefore better. 
+
+\subsection*{Question 10: Finding the Largest Number Using Recursion}
+\subsubsection*{Source Code}
+\begin{lstlisting}
+def find_largest_number(arr, i = 0, highest = None):
+    if i == len(arr): # Base Case: If reach the end of the list, return highest
+        return highest
+    if highest is None: # Case for the first run through (no highest set yet)
+        highest = arr[i] # Set highest to the first number in array
+    else:
+        next_guess = arr[i] # Next guess will be current number in array
+        if next_guess > highest: # if higher than previous number, new highest
+            highest = next_guess
+    return find_largest_number(arr, i+1, highest) # Recursive call
+
+fifty_is_highest = [1, 49, 50, 22, 2, 33]
+print("50 is the expected highest number. Program outputs:", find_largest_number(fifty_is_highest))
+
+# Testing
+print("\nThe program is tested by inputting and printing numerous arrays with known largest numbers")
+
+test_arr1 = [1, 89, 23, 5, 465, 5]
+print("465 is the expected largest number. Program outputs:", find_largest_number(test_arr1))
+test_arr2 = [1, 89, 89, 89, 90]
+print("90 is the expected largest number. Program outputs:", find_largest_number(test_arr2))
+
+\end{lstlisting}
+
+\subsubsection*{Screenshot of the Output}
+\includegraphics[width=1\textwidth]{q10_output.png}
+
+\subsubsection*{Testing}
+Testing was done by feeding the function arrays with known largest numbers, and seeing that the result matches.
+
+\subsection*{Question 11: Approximating Cosine and Sine Using the Maclaurin Series}
+\subsubsection*{Source Code}
+\begin{lstlisting}
+import math
+
+def cos(x, term_count): # Calculating Cosine
+    while x > math.pi: # Keeping X in range of [-pi, pi]
+        x -= 2 * math.pi
+    while x < -math.pi:
+        x += 2 * math.pi
+    # FIRST TERM
+    sign = 1
+    numerator  = 1
+    denominator = 1
+    result_cos = sign * numerator / denominator
+    # Rest of terms
+    for n in range(1, term_count):
+        numerator *= x * x
+        denominator *=  (2 * n - 1) * (2 * n) # use previous denom in calculation
+        sign  *= -1 # Alternating signs
+        result_cos += sign * numerator / denominator
+    return result_cos
+
+
+def sin(x, term_count): # Calculating sine
+    while x > math.pi:  # Keeping X in range of [-pi, pi]
+        x -= 2 * math.pi
+    while x < -math.pi:
+        x += 2 * math.pi
+    #FIRST TERM
+    sign = 1
+    numerator = x
+    denominator = 1
+    result_sin = sign * numerator / denominator
+    # Rest of terms
+    for n in range(1, term_count):
+        numerator *= x * x
+        denominator *= (2 * n + 1) * (2 * n)
+        sign *= -1
+        result_sin += sign * numerator / denominator
+    return result_sin
+
+print("Cos function calculation for first 5 terms and x = 5:", cos(50, 5))
+print("Sin function calculation for first 5 terms and x = 5:", sin(50, 5))
+# Testing
+print("\nTesting: Comparing with in built functions of python:")
+print("Cos:", math.cos(50))
+print("Sin:", math.sin(50))
+\end{lstlisting}
+
+\subsubsection*{Screenshot of the Output}
+\includegraphics[width=1\textwidth]{q11_output.png}
+
+\subsubsection*{Testing}
+Testing was done by comparing the outputs of the functions approximating sine and cosine with the inbuilt functions in python.
+
+\subsection*{Question 12: Generating the Fibonacci Sequence}
+\subsubsection*{Source Code}
+\begin{lstlisting}
+def first_n_fibonacci_numbers(n):
+    sequence = []
+    x = 0 # Starting values of x and y of the sequence
+    y = 1
+    for i in range(n):
+        sequence.append(x)
+        temp = x # use temp for old x as x will be updated in next step, and thus affect y
+        x = y
+        y = temp + y
+    return sequence
+
+print(first_n_fibonacci_numbers(20))
+
+# Testing
+# Below is the first 20 numbers of the fibonacci sequence
+# pasted from wikipedia. It will be used to compare the function's output
+fibonacci_wikipedia = [0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377, 610, 987, 1597, 2584, 4181]
+print(f"wikipedia array is:\n", fibonacci_wikipedia)
+\end{lstlisting}
+
+\subsubsection*{Screenshot of the Output}
+\includegraphics[width=1\textwidth]{q12_output.png}
+
+\subsubsection*{Testing}
+Testing was done visually by comparing side by side the output of the function and the array copied from Wikipedia.
+
+\section*{3. Use of Generative AI}
+ChatGPT was used during this assignment. This was mainly the case for questions 4 and 11. 
+
+For Question 4, it was used to generate reasoning to use a dictionary data structure, as it did not come to mind when trying to implement it incorrectly in the first few attempts. 
+
+For Question 11, it was used to understand that x had to be limited to the range [-pi, pi], as the output was always growing, and I could not understand why. 
+\section*{4. Plagiarism Declaration}
+\includegraphics[width=1\textwidth]{plagiarism.jpg}
+
+\end{document}
